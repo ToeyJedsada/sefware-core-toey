@@ -31,7 +31,7 @@ export class UomComponent implements OnInit {
   rows: any[] = [];
   temp = [];
 
-  constructor(private _itemtypeService: UomService,
+  constructor(private _UomService: UomService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
@@ -46,16 +46,16 @@ export class UomComponent implements OnInit {
 
   load() {
     this.loading = true;
-    this._itemtypeService.requestData().subscribe((snapshot) => {
-      this._itemtypeService.rows = [];
+    this._UomService.requestData().subscribe((snapshot) => {
+      this._UomService.rows = [];
       snapshot.forEach((s) => {
 
         const _row = new uom(s.val());
-        this._itemtypeService.rows.push(_row);
+        this._UomService.rows.push(_row);
 
       });
 
-      this.temp = [...this._itemtypeService.rows];
+      this.temp = [...this._UomService.rows];
       this.loading = false;
       this.setPage(null);
     });
@@ -68,7 +68,7 @@ export class UomComponent implements OnInit {
       this.page.size = pageInfo.pageSize;
     }
 
-    this._itemtypeService.getResults(this.page).subscribe((pagedData) => {
+    this._UomService.getResults(this.page).subscribe((pagedData) => {
       this.page = pagedData.page;
       this.rows = pagedData.data;
     });
