@@ -17,17 +17,53 @@ import * as _ from 'lodash';
 
 })
 export class UomDialogComponent implements OnInit {
+  @Language() lang: string;
   error: any;
   public data: uom = new uom ({});
   constructor(@Inject(MAT_DIALOG_DATA) public md_data: uom,
               private UnitService: uomService,
               private _loadingService: TdLoadingService,
-              public dialogRef: MatDialogRef<UomDialogComponent>) { }
-  @Language() lang: string;
-  private dialog: MatDialog;
-  ngOnInit(): void {
+              public dialogRef: MatDialogRef<UomDialogComponent>) {
+    try {
+      if (md_data) {
+        this.data = new uom(md_data);
+
+      } else {
+        this.UnitService.requestData().subscribe(() => {
+          this.generateCode();
+        });
+      }
+    } catch (error) {
+      this.error = error;
+    }
   }
-  saveData(form) {
+  ngOnInit() {
+  }
+
+  generateCode() {
+    this._loadingService.register('data.form');
+    this.data.code = "UOM-001";
+    console.log("code :" + this.data.code);
+    this.UnitService.requestLastData().subscribe(s => {
+      s.forEach((ss: uom) => {
+        let str = parseInt(ss.code.substring(ss.code.length - 3, ss.code.length)) + 1;
+        let last = 'UOM-' + str;
+
+        if (str < 100) {
+          last = 'UOM-0' + str;
+        }
+
+        if (str < 10) {
+          last = 'UOM-00' + str;
+        }
+
+        this.data.code = last;
+      });
+      this._loadingService.resolve('data.form');
+    });
+  }
+
+  saveData(form){
 
     if (form.valid) {
 

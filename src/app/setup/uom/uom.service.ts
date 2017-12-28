@@ -10,7 +10,7 @@ export class uomService {
 
   lists: FirebaseListObservable<any>;
   rows: uom[] = [];
-  _path: string = '/uom/N';
+  _path: string = '/uom';
 
   constructor(private agFb: AngularFireDatabase) {
     this.lists = agFb.list(this._path, {preserveSnapshot: true});

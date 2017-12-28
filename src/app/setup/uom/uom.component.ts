@@ -81,8 +81,22 @@ export class UomComponent implements OnInit {
       width: '350px',
       height: '300px'
     });
-
     dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        // this.msgs = [];
+        // this.msgs.push({severity: 'success', detail: 'Data updated'});
+      }
+    });
+  }
+  editData(data: uom) {
+    const dialogRef = this.dialog.open(UomDialogComponent, {
+      disableClose: true,
+      width: '100%',
+      height: '100%',
+      data
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         // this.msgs = [];
         // this.msgs.push({severity: 'success', detail: 'Data updated'});
