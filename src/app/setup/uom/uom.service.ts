@@ -6,11 +6,11 @@ import {Observable} from 'rxjs';
 import {PagedData} from '../../shared/model/paged-data';
 
 @Injectable()
-export class UomService {
+export class uomService {
 
   lists: FirebaseListObservable<any>;
   rows: uom[] = [];
-  _path: string = '/main/settings/UOM';
+  _path: string = '/uom/N';
 
   constructor(private agFb: AngularFireDatabase) {
     this.lists = agFb.list(this._path, {preserveSnapshot: true});

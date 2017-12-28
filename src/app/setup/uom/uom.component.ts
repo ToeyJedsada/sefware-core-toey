@@ -6,7 +6,7 @@ import {UploadService} from '../../services/upload.service';
 import {Language} from 'angular-l10n';
 import {TdLoadingService, TdMediaService} from '@covalent/core';
 import {SelectionModel} from '@angular/cdk/collections';
-import {UomService} from "./uom.service";
+import {uomService} from "./uom.service";
 import {UomDialogComponent} from "./uom-dialog/uom-dialog.component";
 import {uom} from "./uom";
 
@@ -15,7 +15,7 @@ import {uom} from "./uom";
   selector: 'app-uom',
   templateUrl: './uom.component.html',
   styleUrls: ['./uom.component.scss'],
-  providers: [UomService]
+  providers: [uomService]
 })
 export class UomComponent implements OnInit {
 
@@ -31,7 +31,7 @@ export class UomComponent implements OnInit {
   rows: any[] = [];
   temp = [];
 
-  constructor(private _UomService: UomService,
+  constructor(private _UomService: uomService,
               public media: TdMediaService,
               public snackBar: MatSnackBar,
               private dialog: MatDialog) {
